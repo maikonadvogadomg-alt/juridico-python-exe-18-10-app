@@ -1,0 +1,48 @@
+name: Programa .exe (Python, um arquivo só)
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  montar:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Instalar o PyInstaller
+        run: python -m pip install pyinstaller
+
+      - name: Montar o .exe (o site vai dentro)
+        run: python -m PyInstaller --onefile --console --name Assistente-Juridico --icon icone.ico --add-data "www;www" abrir.py
+
+      - name: Conferir se o programa liga e abre o app
+        shell: pwsh
+        run: |
+          $env:SEM_ABRIR = "1"
+          $env:PORTA = "7799"
+          $p = Start-Process -FilePath "dist\Assistente-Juridico.exe" -PassThru
+          Start-Sleep -Seconds 12
+          $r = Invoke-WebRequest -Uri "http://127.0.0.1:7799/" -UseBasicParsing
+          Stop-Process -Id $p.Id -Force
+          if ($r.StatusCode -ne 200 -or $r.Content -notmatch "app-unico.js") { Write-Error "O programa não abriu o app"; exit 1 }
+          Write-Host "OK: o programa ligou e entregou o app"
+
+      - name: Guardar nos Artifacts (somem depois de alguns dias)
+        uses: actions/upload-artifact@v4
+        with:
+          name: Assistente-Juridico-exe
+          path: dist/Assistente-Juridico.exe
+
+      - name: Publicar em Releases (não some)
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: exe-python-${{ github.run_number }}
+          name: Assistente Jurídico .exe (Python) nº ${{ github.run_number }}
+          files: dist/Assistente-Juridico.exe

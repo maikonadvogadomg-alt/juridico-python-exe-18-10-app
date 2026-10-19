@@ -1,0 +1,50 @@
+{
+  "name": "juridicopythonexe1810",
+  "version": "1.0.0",
+  "description": "juridicopythonexe1810",
+  "author": "Maikon",
+  "private": true,
+  "main": "electron/main.cjs",
+  "portaDoPrograma": 7847,
+  "devDependencies": {
+    "electron": "33.2.1",
+    "electron-builder": "25.1.8"
+  },
+  "build": {
+    "appId": "com.maikonadvogadomgalt.juridicopythonexe1810.pc",
+    "productName": "juridicopythonexe1810",
+    "executableName": "juridicopythonexe1810",
+    "directories": {
+      "output": "release"
+    },
+    "asar": false,
+    "files": [
+      "**/*",
+      "!android/**",
+      "!.github/**",
+      "!release/**",
+      "!node_modules/.cache/**",
+      "!*.zip",
+      "!.sk/**",
+      "!apk.config.json"
+    ],
+    "win": {
+      "target": [
+        "nsis",
+        "portable"
+      ],
+      "icon": "icons/icon-512.png"
+    },
+    "nsis": {
+      "oneClick": true,
+      "perMachine": false,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "juridicopythonexe1810",
+      "artifactName": "juridicopythonexe1810-Instalar.exe"
+    },
+    "portable": {
+      "artifactName": "juridicopythonexe1810-sem-instalar.exe"
+    }
+  }
+}

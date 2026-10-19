@@ -1,0 +1,26 @@
+{
+  "titulo": "Juridico-Python-EXE-18-10",
+  "arquivo": "index.html",
+  "itens": [
+    {
+      "path": "www/auditoria.html",
+      "nome": "Auditoria Financeira - Assistente Jurídico",
+      "desc": "",
+      "on": false,
+      "icone": "www/icons/icon-192.png",
+      "emoji": ""
+    },
+    {
+      "path": "www/index.html",
+      "nome": "Assistente IA Jurídico",
+      "desc": "",
+      "on": true,
+      "icone": "www/icons/icon.svg",
+      "emoji": ""
+    }
+  ],
+  "sub": "",
+  "logo": "",
+  "tema": "escuro",
+  "links": []
+}
